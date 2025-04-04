@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const API_BASE_URL = "/api";
+// Dynamic base URL: proxy for development, full URL for production
+const API_BASE_URL = import.meta.env.MODE === "development" ? "/api" : "https://world.openfoodfacts.org";
 
 export const fetchProductsByCategory = async (category, page = 1) => {
   try {
-    // Use search endpoint for better pagination control
     const response = await axios.get(
       `${API_BASE_URL}/cgi/search.pl?tagtype=categories&tagid=${category}&page_size=50&page=${page}&json=true`
     );
